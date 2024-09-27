@@ -1,0 +1,47 @@
+@startuml
+title Rekap Laporan Pengelolaan Fasilitas
+|Manajer Keuangan|
+start
+split
+:Melihat rekap pembayaran UKT;
+if (Filter berdasarkan semester?) then (Ya)
+  :Filter data UKT;
+endif
+:Melihat statistik pembayaran UKT;
+stop
+split again
+:Melihat laporan penggunaan anggaran;
+if (Filter berdasarkan kategori fasilitas dan periode waktu?) then (Ya)
+  :Filter data anggaran;
+endif
+split
+:Melihat persentase realisasi anggaran;
+stop
+split again
+:Melihat data statistik keuangan;
+stop
+split again
+:Melihat grafik tren aliran dana;
+stop
+
+|#AntiqueWhite|Manajer Fasilitas|
+start
+split
+:Melihat statistik penggunaan fasilitas;
+if (Filter berdasarkan jenis fasilitas dan periode?) then (Ya)
+  :Filter data penggunaan fasilitas;
+endif
+stop
+split again
+:Melihat laporan keluhan fasilitas;
+if () is (penyelesaian keluhan) then
+  :Melihat statistik penyelesaian keluhan;
+else (tren keluhan dan feedback)
+  :Melihat tren keluhan dan feedback mahasiswa;
+endif
+stop
+split again
+:Melihat statistik permintaan pengadaan fasilitas;
+:Melihat persentase permintaan yang disetujui/ditolak;
+stop
+@enduml

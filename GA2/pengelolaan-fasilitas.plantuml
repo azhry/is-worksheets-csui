@@ -1,0 +1,26 @@
+@startuml
+title Pengelolaan Fasilitas
+| |
+|#AntiqueWhite|Staf Fasilitas|
+start
+:Mendapatkan informasi fasilitas;
+if () is (fasilitas baru) then
+  :Menentukan kategori fasilitas;
+  ' kategori: ruang kelas, laboratorium komputer,perpustakaan, ruang diskusi, ruang rapat, kantin, area parkir, ruang kesehatan, auditorium, toilet, dan gudang
+  if (kategori baru) is (yes) then
+    :Membuat kategori baru;
+  else (no)
+  endif
+  :Mengisi form data fasilitas baru;
+  ' nama, kapasitas, deskripsi, lokasi, fungsi dari fasilitas baru, tanggal, waktu, Staf penanggung jawab, dan deskripsi pemeliharaan
+  :Mengunggah foto fasilitas;
+  -> fasilitas terdaftar;
+else (fasilitas yang \ntelah terdaftar)
+  if (ingin mengubah info) is (yes) then
+    :Ubah informasi fasilitas \nyang telah terdaftar;
+    -> informasi \nfasilitas \nberubah;
+  else (no)
+  endif
+endif
+stop
+@enduml

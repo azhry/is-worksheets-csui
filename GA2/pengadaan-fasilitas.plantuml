@@ -1,0 +1,65 @@
+@startuml
+title Pengadaan Fasilitas
+|#AntiqueWhite|Staf Fasilitas|
+start
+:Mendapatkan informasi fasilitas;
+if () is (fasilitas baru) then
+  :Memilih kategori fasilitas;
+  ' kategori: furniture (meja, kursi, papan tulis, dsb), barang elektronik(mikrofon, proyektor, layar, dsb), ATK dan lain sebagainya.
+  :Memasukkan data fasilitas;
+  ' nama fasilitas, deskripsi fasilitas, lokasi di mana fasilitas tersebut akan digunakan, alasan
+  if (ada contoh foto fasilitas?) is (yes) then
+    :Mengunggah contoh foto fasilitas;
+    ' format JPG/JPEG/PNG.
+  else (no)
+  endif
+  :Melakukan analisis \ndetail diperlukannya \npengadaan fasilitas;
+  ' aspek pengadaan, termasuk biaya pengadaan, instalasi, dan pemeliharaan awal fasilitas tersebut
+  :Memasukkan nama vendor \npenyedia fasilitas;
+  -> cek vendor \nsecara manual\n\n\n;
+  if (vendor sudah \nbekerja sama?) is (yes) then
+  else (no)
+    -> hanya vendor yang \ntelah bekerja sama \ndengan universitas yang \nbisa direkomendasikan;
+    stop
+  endif
+  -> formulir pengadaan tersimpan;
+else (fasilitas yang telah dilakukan pengadaan)
+  if () is (ada review dari \nmanajer/alasan lain) then
+    :Mengubah data \npengajuan pengadaan;
+  else (membatalkan \npengajuan)
+    :Memberikan alasan \npembatalan pengadaan;
+    stop
+  endif
+endif
+|Manajer Fasilitas|
+:Mendapatkan data \npengajuan pengadaan;
+' termasuk detail fasilitas yang diusulkan, alasan pengajuan,estimasi biaya, dan rekomendasi vendor
+:Mengevaluasi pengajuan;
+if () is (ditolak) then
+  :Memberikan komentar / \nrekomendasi perbaikan \nkepada Staf Fasilitas; 
+  stop
+else (disetujui)
+endif
+|#AntiqueWhite|Staf Keuangan|
+:Melihat daftar pengajuan \nanggaran pengadaan;
+if (anggaran sesuai?) is (yes) then
+  :Meminta dokumen / penjelasan \nkepada Manajer Fasilitas \nmengenai perbedaan anggaran \nyang terjadi;
+  |Manajer Fasilitas|
+  :Memberikan penjelasan/dokumen \ntambahan terkait anggaran;
+  |#AntiqueWhite|Staf Keuangan|
+  if (memenuhi syarat?) is (no) then
+    :Memberikan alasan penolakan;
+    -> pengajuan ditolak;
+    stop
+  else (yes)
+    :Melakukan pembayaran;
+    :Mengisi formulir \nbukti pembayaran;
+    ' tanggal pembayaran, jumlah anggaran yang dikirim, metode pembayaran yang digunakan, serta detail pengirim dan penerima pembayaran
+  endif
+else (no)
+  :Melakukan pembayaran;
+  :Mengisi formulir \nbukti pembayaran;
+  ' tanggal pembayaran, jumlah anggaran yang dikirim, metode pembayaran yang digunakan, serta detail pengirim dan penerima pembayaran
+endif
+stop
+@enduml

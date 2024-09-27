@@ -1,33 +1,47 @@
 @startuml
 title Peminjaman Fasilitas
-!theme mars
 |Mahasiswa|
 start
-:Memilih fasilitas;
-:Memasukkan NPM;
-:Mengisi deskripsi, jenis, dan jumlah \npeserta kegiatan;
-:Mengunggah dokumen pendukung \n(surat izin / proposal);
-:Memilih waktu mulai, tanggal mulai, \nwaktu selesai, tanggal selesai;
-if (waktu mulai >= 3) is (yes) then
-    |#AntiqueWhite|Staf Fasilitas|
-    :Mengevaluasi peminjaman;
-    :Mengecek ketersediaan fasilitas;
-    if (fasilitas tersedia?) is (yes) then
-        :Memastikan jadwal peminjaman;
-        if (bentrok dengan KBM?) is (yes) then
-            :Pengajuan ditolak;
-            stop
+if () is (mengajukan peminjaman) then
+    :Memilih fasilitas;
+    :Memasukkan NPM;
+    :Mengisi deskripsi, jenis, dan jumlah \npeserta kegiatan;
+    :Mengunggah dokumen pendukung \n(surat izin / proposal);
+    :Memilih waktu mulai, 
+    tanggal mulai, waktu selesai, 
+    tanggal selesai;
+    if (waktu mulai >= 3) is (yes) then
+        |#AntiqueWhite|Staf Fasilitas|
+        ' -[#black,dashed]->
+        :Mengevaluasi peminjaman;
+        :Mengecek ketersediaan fasilitas;
+        if (fasilitas tersedia?) is (yes) then
+            :Memastikan jadwal peminjaman;
+            if (bentrok dengan KBM?) is (yes) then
+            else (no)
+                :Pengajuan diterima;
+                stop
+            endif
         else (no)
-            :Pengajuan diterima;
-            stop
         endif
     else (no)
-        :Pengajuan ditolak;
-        stop
     endif
-else (no)
-    |Staf Fasilitas|
     :Pengajuan ditolak;
+    stop
+else (melihat info peminjaman)
+    |Mahasiswa|
+    :Memilih pengajuan peminjaman fasilitas;
+    if () is (memperbarui \nwaktu peminjaman) then
+        :Memperbaharui \nwaktu peminjaman;
+    else (membatalkan \npeminjaman)
+        :Menulis alasan \npembatalan \npeminjaman;
+    endif
+    |#AntiqueWhite|Staf Fasilitas|
+    if (waktu mulai >= 3) is (yes) then
+        :Pembaharuan/pembatalan \nditerima;
+    else (no)
+        :Pembaharuan/pembatalan \nditolak;
+    endif
     stop
 endif
 @enduml

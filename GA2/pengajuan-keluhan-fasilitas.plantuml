@@ -1,0 +1,26 @@
+@startuml
+title Pengajuan Keluhan Fasilitas
+|Mahasiswa|
+start
+:Memilih peminjaman fasilitas;
+:Melaporkan \nkeluhan/ketidaknyamanan;
+' meliputi kerusakan fisik pada fasilitas, kebersihan fasilitas sebelum digunakan, pencahayaan yang kurang memadai, ataupun kendala lainnya
+:Mengunggah dokumentasi \nkondisi fasilitas;
+' foto/ video
+|#AntiqueWhite|Staf Fasilitas|
+:Memeriksa deskripsi \ndan bukti keluhan;
+:Verifikasi keluhan;
+if (valid) is (yes) then
+  :Mengisi hal-hal yang \ndiperlukan untuk \npenanganan keluhan fasilitas;
+  :Menugaskan staf \npenanganan keluhan \nfasilitas;
+  :Mengubah status \nkeluhan menjadi \n"dalam penanganan";
+  -> keluhan \ndalam \npenanganan;
+else (no)
+  :Menulis alasan penolakan;
+  :Mengubah status \nkeluhan menjadi \n"ditolak";
+  -> keluhan \nditolak;
+endif
+|Sistem|
+:Mengirim notifikasi \nstatus keluhan \nke mahasiswa \nmelalui email;
+stop
+@enduml
