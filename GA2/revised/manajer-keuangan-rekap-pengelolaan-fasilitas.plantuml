@@ -1,0 +1,34 @@
+@startuml
+title Rekap Laporan Pembayaran UKT dan Penggunaan Anggaran
+|#AntiqueWhite| |
+|Manajer Keuangan|
+start
+split
+:Melihat rekap pembayaran UKT;
+if (Filter berdasarkan kategori?) then (Ya)
+  :Filter data UKT \nberdasarkan kategori;
+else (Tidak)
+endif
+if (Filter berdasarkan semester?) then (Ya)
+  :Filter data UKT \nberdasarkan semester;
+else (Tidak)
+endif
+:Melihat statistik pembayaran UKT;
+stop
+split again
+:Melihat laporan penggunaan anggaran;
+if (Filter berdasarkan kategori \nfasilitas dan periode waktu?) then (Ya)
+  :Filter data anggaran;
+endif
+split
+:Melihat persentase \nrealisasi anggaran;
+stop
+split again
+:Melihat data \nstatistik keuangan;
+stop
+split again
+:Melihat grafik \ntren aliran dana;
+stop
+
+
+@enduml

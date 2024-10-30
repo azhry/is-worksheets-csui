@@ -1,0 +1,144 @@
+@startuml
+hide footbox
+actor Pelanggan as P
+boundary "UI Penyewaan Kendaraan" as SPK
+
+participant Kendaraan as K
+participant Pembatalan as Pb
+participant Penyewaan as Py
+participant Supir as S
+
+P -> SPK : Membuka form penyewaan kendaraan
+activate SPK
+
+SPK -> K : Mengambil data kategori kendaraan
+activate K
+K --> SPK : daftar kategori kendaraan
+deactivate K
+
+SPK --> P : menampilkan kategori kendaraan yang tersedia
+deactivate SPK
+
+P -> SPK : Memilih kategori kendaraan
+activate SPK
+SPK --> P : menampilkan kota domisili penyewaan
+deactivate SPK
+
+P -> SPK : Memilih kota domisili penyewaan
+activate SPK
+SPK --> P : menampilkan rentang tanggal sewa
+deactivate SPK
+
+P -> SPK : Memasukkan rentang tanggal sewa
+activate SPK
+
+activate SPK
+
+alt tanggal penyewaan tidak tersedia
+  SPK --> P : tanggal penyewaan untuk kendaraan ini tidak tersedia
+
+  P -> SPK : cancelRent()
+  activate SPK
+  
+  SPK -> Pb : Menyimpan pembatalan
+  activate Pb
+  Pb --> SPK : pembatalan tersimpan
+  deactivate Pb
+
+  deactivate SPK
+  destroy SPK
+end
+
+SPK -> K : Mengambil data tipe kendaraan
+activate K
+K --> SPK : daftar tipe kendaraan
+deactivate K
+
+SPK --> P : menampilkan tipe kendaraan
+deactivate SPK
+
+P -> SPK : Memilih tipe kendaraan
+activate SPK
+activate SPK
+
+alt kendaraan tidak tersedia
+  SPK --> P : kendaraan yang dipilih tidak ditemukan
+
+  P -> SPK : cancelRent()
+  activate SPK
+  
+  SPK -> Pb : Menyimpan pembatalan
+  activate Pb
+  Pb --> SPK : pembatalan tersimpan
+  deactivate Pb
+
+  deactivate SPK
+  destroy SPK
+end
+
+
+alt menyewa mobil atau bus
+  SPK --> P : menampilkan opsi jasa penyewaan supir
+  
+
+  P -> SPK : Memilih menggunakan jasa supir
+  activate SPK
+  activate SPK
+  SPK -> S : Menyimpan pilihan pelanggan
+  activate S
+  S --> SPK : jasa supir tersimpan
+  deactivate S
+  deactivate SPK
+  deactivate SPK
+end
+
+SPK --> P : menampilkan form tujuan
+deactivate SPK
+deactivate SPK
+
+P -> SPK : Memasukkan data tujuan dan kontak penanggung jawab sewa
+activate SPK
+SPK --> P : menampilkan persyaratan penyewaan
+deactivate SPK
+
+alt pelanggan tidak menyetujui persyaratan
+  P -> SPK : Pelanggan tidak menyetujui persyaratan
+  activate SPK
+  SPK --> P : syarat tidak disetujui
+  deactivate SPK
+
+  P -> SPK : Membatalkan penyewaan
+  activate SPK
+  
+  SPK -> Pb : Menyimpan pembatalan
+  activate Pb
+  Pb --> SPK : pembatalan tersimpan
+  deactivate Pb
+
+  deactivate SPK
+  destroy SPK
+end
+
+P -> SPK : Menyetujui persyaratan penyewaan
+activate SPK
+
+SPK -> Py : calculateTotalFee()
+activate Py
+Py --> SPK : total fee
+deactivate Py
+
+SPK --> P : menampilkan detail form dan total harga penyewaan kendaraan
+deactivate SPK
+
+P -> SPK : rentVehicle()
+activate SPK
+
+SPK -> Py : Menyimpan data penyewaan kendaraan
+activate Py
+Py --> SPK : penyewaan tersimpan
+deactivate Py
+
+SPK --> P : notifikasi ke pelanggan
+deactivate SPK
+
+@enduml

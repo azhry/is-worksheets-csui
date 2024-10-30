@@ -1,0 +1,13 @@
+@startuml
+title Pengajuan Keluhan Fasilitas
+|Mahasiswa|
+start
+:Memilih peminjaman fasilitas;
+:Melaporkan \nkeluhan/ketidaknyamanan;
+' meliputi kerusakan fisik pada fasilitas, kebersihan fasilitas sebelum digunakan, pencahayaan yang kurang memadai, ataupun kendala lainnya
+:Mengunggah dokumentasi \nkondisi fasilitas;
+:Submit keluhan fasilitas;
+|Sistem|
+:Menyampaikan keluhan fasilitas \nke Staf Fasilitas;
+stop
+@enduml

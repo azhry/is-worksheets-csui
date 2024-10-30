@@ -1,0 +1,32 @@
+@startuml
+title Evaluasi Pengajuan Peminjaman Fasilitas
+| |
+|#AntiqueWhite|Staf Fasilitas|
+start
+:Memilih pengajuan peminjaman fasilitas;
+if () is (evaluasi peminjaman baru) then
+    :Mengevaluasi peminjaman baru;
+    if (waktu mulai >= 3) is (yes) then
+        :Mengecek ketersediaan fasilitas;
+        if (fasilitas tersedia?) is (yes) then
+            :Memastikan jadwal peminjaman;
+            if (bentrok dengan KBM?) is (yes) then
+            else (no)
+                :Pengajuan diterima;
+                stop
+            endif
+        else (no)
+        endif
+    else (no)
+    endif
+    :Pengajuan ditolak;
+else (evaluasi perubahan pengajuan peminjaman)
+    :Mengevaluasi perubahan peminjaman;
+    if (waktu mulai >= 3) is (yes) then
+        :Pembaharuan/pembatalan \nditerima;
+    else (no)
+        :Pembaharuan/pembatalan \nditolak;
+    endif
+endif
+stop
+@enduml

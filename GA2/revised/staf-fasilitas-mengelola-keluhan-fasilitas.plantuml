@@ -1,0 +1,22 @@
+@startuml
+title Mengelola Keluhan Fasilitas
+|#AntiqueWhite|Staf Fasilitas|
+start
+:Melihat daftar keluhan;
+:Memilih keluhan yang ingin ditangani;
+:Memeriksa deskripsi \ndan bukti keluhan;
+if (valid) is (yes) then
+  :Verifikasi keluhan;
+  -> status keluhan \nmenjadi "terverifikasi";
+  :Menugaskan staf \npenanganan keluhan \nfasilitas;
+  :Mengubah status \nkeluhan menjadi \n"dalam penanganan";
+  -> keluhan \ndalam \npenanganan;
+else (no)
+  :Menulis alasan penolakan;
+  :Mengubah status \nkeluhan menjadi \n"ditolak";
+  -> keluhan \nditolak;
+endif
+|Sistem|
+:Mengirim notifikasi \nstatus keluhan \nke mahasiswa \nmelalui email;
+stop
+@enduml

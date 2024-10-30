@@ -1,0 +1,21 @@
+@startuml
+package "cd Melakukan Penyewaan" {
+  actor "Customer" as AC
+  rectangle ":RentForm\n<<UI>>" as RF
+  rectangle ":Vehicle" as V
+  rectangle "aNewRent:\nRent" as R
+  rectangle "anExistingRent:\nRent" as ER
+}
+
+AC -right-- RF : "1: openRentForm →\n2: chooseVehicleCategory →\n3: chooseTown →\n4: pickDateRange →\n5: openVehicleList →\n← 8: ListOfVehicles\n9: chooseVehicleType →\n← 12: VehicleDetail\n 13: fillPurposeAndCP →\n 14: [Rent car or bus] chooseDriverService →\n 15: acceptRentalTerm →\n← 16: showRentRequestDetail\n 17: submitRentForm →\n← 20: RentCreated\n← 21: [Failed to submit] RentRequestFailed\n 22: [Update rent request] selectRentRequest →\n← 25: [Update rent request] RentForm\n 26: [Update rent request] updateRentRequest →\n← 30: [Update rent request] ChangeRequestSaved\n 31: [Cancel rent request] selectRentRequest →\n← 34: [Cancel rent request] RentForm\n 35: [Cancel rent request] updateRentRequest →"
+
+RF -right- V : "6: openVehicleList →                     \n← 7: ListOfVehicles                     \n10: openVehicleDetail →                     \n← 11: VehicleDetail                     "
+
+RF -up--- R : "18: createRent →\n← 19: RentCreated\n\n\n\n"
+
+RF -down-- ER : "23: [Update rent request] selectRentRequest →\n← 24: [Update rent request] RentForm\n 27: [Update rent request] updateRentRequest →\n← 29: [Update rent request] ChangeRequestSaved\n 32: [Cancel rent request] selectRentRequest →\n← 33: [Cancel rent request] RentForm\n 36: [Cancel rent request] updateRentRequest →"
+
+ER - ER : "28: [Update rent request] saveRequest →\n 37: [Cancel rent request] saveRequest →"
+
+
+@enduml

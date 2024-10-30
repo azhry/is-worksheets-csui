@@ -1,0 +1,23 @@
+@startuml
+title Rekap Laporan Pengelolaan Fasilitas
+| |
+|#AntiqueWhite|Manajer Fasilitas|
+start
+split
+:Melihat statistik \npenggunaan fasilitas;
+if (Filter berdasarkan jenis \nfasilitas dan periode?) then (Ya)
+  :Filter data penggunaan fasilitas;
+endif
+stop
+split again
+:Melihat laporan \nkeluhan fasilitas;
+if () is (penyelesaian keluhan) then
+  :Melihat statistik penyelesaian keluhan;
+else (tren keluhan dan feedback)
+  :Melihat tren keluhan \ndan feedback mahasiswa;
+endif
+stop
+split again
+:Melihat statistik permintaan \npengadaan fasilitas;
+stop
+@enduml

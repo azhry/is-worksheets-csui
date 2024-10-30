@@ -1,0 +1,26 @@
+@startuml
+title Pengajuan Peminjaman Fasilitas
+|#AntiqueWhite| |
+|Mahasiswa|
+start
+if () is (mengajukan peminjaman) then
+    :Memilih fasilitas;
+    :Memasukkan NPM;
+    :Mengisi deskripsi, jenis, dan jumlah \npeserta kegiatan;
+    :Mengunggah dokumen pendukung \n(surat izin / proposal);
+    :Memilih waktu mulai, 
+    tanggal mulai, waktu selesai, 
+    tanggal selesai;
+    :Submit pengajuan;
+    stop
+else (melihat info peminjaman)
+    |Mahasiswa|
+    :Memilih pengajuan peminjaman fasilitas;
+    if () is (memperbarui \nwaktu peminjaman) then
+        :Memperbaharui \nwaktu peminjaman;
+    else (membatalkan \npeminjaman)
+        :Menulis alasan \npembatalan \npeminjaman;
+    endif
+    stop
+endif
+@enduml
