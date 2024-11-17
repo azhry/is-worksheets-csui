@@ -1,0 +1,114 @@
+@startuml
+class Mahasiswa {
+-NPM : String
+-email : String
++ajukanPinjamanFasilitas(fasilitas : Fasilitas, tujuan : String, dokumen : File, tanggalMulai : DateTime, tanggalAkhir : DateTime) : void
++batalkanPinjamanFasilitas(alasan : String) : void
++laporkanKeluhan(fasilitas : Fasilitas, detailKeluhan : String, bukti : File[]) : void
+}
+
+class Fasilitas {
+-nama : String
+-kapasitas : Integer
+-deskripsi : String
+-lokasi : String
+-status : StatusFasilitas
++daftarkanFasilitas(nama : String, kategori : KategoriFasilitas) : void
++perbaruiStatusFasilitas(statusBaru : StatusFasilitas) : void
+}
+
+class PermohonanPinjamanFasilitas {
+-idPinjaman : String
+-status : StatusPermohonan
+-tanggalMulai : DateTime
+-tanggalAkhir : DateTime
+-tujuan : String
+-dokumenPendukung : File[]
++cekKetersediaan() : Boolean
++perbaruiStatusPermohonan(statusBaru : StatusPermohonan) : void
+}
+
+class StafFasilitas {
+-idStaf : String
+-nama : String
+-posisi : String
++setujuiPermohonanPinjaman(permohonan : PermohonanPinjamanFasilitas) : void
++tolakPermohonanPinjaman(permohonan : PermohonanPinjamanFasilitas, alasan : String) : void
++tanganiKeluhan(keluhan : Keluhan) : void
++jadwalkanPemeliharaan(fasilitas : Fasilitas, tanggal : DateTime, stafBertanggungJawab : StafFasilitas) : void
+}
+
+class Keluhan {
+-idKeluhan : String
+-deskripsi : String
+-status : StatusKeluhan
+-bukti : File[]
++perbaruiStatusKeluhan(statusBaru : StatusKeluhan) : void
++tugaskanStafPenanganan(staf : StafFasilitas) : void
+}
+
+class JadwalPemeliharaan {
+-idJadwal : String
+-tanggal : DateTime
+-stafBertanggungJawab : StafFasilitas
+-deskripsi : String
++aturTanggalPemeliharaan(tanggal : DateTime) : void
+}
+
+class ManajerFasilitas {
+-idManajer : String
+-nama : String
+-posisi : String
++evaluasiLaporanFasilitas(laporan : Laporan) : void
++setujuiPengadaanFasilitasBaru(permintaanPengadaan : PermintaanPengadaan) : void
++tinjauLaporanPemeliharaan() : void
+}
+
+class StafKeuangan {
+-idStaf : String
+-nama : String
++kelolaAnggaran(fasilitas : Fasilitas) : void
++prosesPembayaran(pembayaran : Pembayaran) : void
+}
+
+class PermintaanPengadaan {
+-idPengadaan : String
+-rekomendasiVendor : String
+-perkiraanBiaya : Decimal
++hitungTotalBiaya() : Decimal
++ajukanPermintaanPengadaan() : void
+}
+
+class ManajerKeuangan {
+-idManajer : String
+-nama : String
++evaluasiLaporanKeuangan(laporan : Laporan) : void
+}
+
+class Laporan {
+-idLaporan : String
+-jenis : JenisLaporan
+-tanggalDibuat : DateTime
+-ringkasan : String
++buatLaporan() : Laporan
+}
+
+Mahasiswa "1" --> "*" PermohonanPinjamanFasilitas : mengajukan
+Fasilitas "1" <-- "*" PermohonanPinjamanFasilitas : dipinjam oleh
+Fasilitas "1" <-- "1" JadwalPemeliharaan : memiliki
+Fasilitas "1" --> "*" KategoriFasilitas : memiliki
+PermohonanPinjamanFasilitas "*" --> "1" Mahasiswa : diajukan oleh
+PermohonanPinjamanFasilitas "*" --> "1" Fasilitas : menggunakan
+StafFasilitas "1" --> "*" Keluhan : menangani
+Keluhan "*" --> "1" Mahasiswa : dilaporkan oleh
+Keluhan "*" <-- "1" StafFasilitas : ditangani oleh
+JadwalPemeliharaan "1" --> "1" Fasilitas : dijadwalkan untuk
+ManajerFasilitas "1" --> "*" Fasilitas : mengelola
+ManajerFasilitas "1" --> "*" Laporan : membuat
+StafKeuangan "*" --> "1" PermintaanPengadaan : memproses
+PermintaanPengadaan "1" --> "*" Fasilitas : melakukan pengadaan
+ManajerKeuangan "1" --> "*" StafKeuangan : mengawasi
+Laporan "*" --> "1" ManajerFasilitas : dievaluasi oleh
+Laporan "*" --> "1" ManajerKeuangan : ditinjau oleh
+
+@enduml

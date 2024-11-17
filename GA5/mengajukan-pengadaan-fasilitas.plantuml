@@ -1,0 +1,69 @@
+@startuml
+hide footbox
+
+actor "Staf Fasilitas" as SP
+participant ":Form Pengadaan\n<<UI>>" as FP
+participant ":Fasilitas" as F
+participant "aNewPermintaanPengadaan:\nPermintaanPengadaan" as NewPP
+participant "anExistingPermintaanPengadaan:\nPermintaanPengadaan" as ExistingPP
+
+activate SP
+SP -> FP : Membuka halaman pengadaan
+activate FP
+
+FP -> F : Membuka daftar kategori fasilitas
+activate F
+F --> FP : Daftar kategori fasilitas
+deactivate F
+FP --> SP : Daftar kategori fasilitas
+
+SP -> FP : Memilih kategori fasilitas
+SP -> FP : Mengisi nama fasilitas, deskripsi, lokasi, dan alasan pengadaan fasilitas
+
+opt Mengunggah contoh foto fasilitas
+  SP -> FP : Membukat form unggah contoh foto fasilitas
+  SP -> FP : Mengunggah contoh foto fasilitas
+end
+
+SP -> FP : Memilih vendor
+SP -> FP : Submit formulir pengadaan fasilitas
+
+FP -> NewPP ** : Submit pengadaan fasilitas
+activate NewPP
+NewPP --> FP : Pengadaan tersimpan
+deactivate NewPP
+FP --> SP : Pengadaan tersimpan
+
+opt Vendor tidak terdaftar
+  FP --> SP : Permintaan pengadaan ditolak
+end
+
+opt Mengubah data pengajuan
+  SP -> FP : Memilih data pengajuan pengadaan fasilitas
+  create ExistingPP
+  FP -[#transparent]> ExistingPP : 
+  FP -> ExistingPP : Memilih data pengajuan pengadaan fasilitas
+  activate ExistingPP
+  ExistingPP --> FP : Detail data pengajuan
+  FP --> SP : Detail data pengajuan
+  SP -> FP : Mengubah data pengajuan
+  SP -> FP : Submit perubahan data pengajuan
+  FP -> ExistingPP : Mengubah data pengajuan
+  ExistingPP -> ExistingPP : Menyimpan perubahan data pengajuan
+  ExistingPP -[#transparent]> ExistingPP:
+end
+
+opt Membatalkan pengajuan
+  SP -> FP : Memilih data pengajuan pengadaan fasilitas
+  FP -> ExistingPP : Memilih data pengajuan pengadaan fasilitas
+  ExistingPP --> FP : Detail data pengajuan
+  FP --> SP : Detail data pengajuan
+  SP -> FP : Mengisi alasan pembatalan pengajuan
+  SP -> FP : Submit pembatalan data pengajuan
+  FP -> ExistingPP : Membatalkan data pengajuan
+  ExistingPP -> ExistingPP : Menyimpan perubahan data pembatalan pengajuan
+  ExistingPP -[#transparent]> ExistingPP:
+  deactivate ExistingPP
+end
+
+@enduml
